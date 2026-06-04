@@ -1,0 +1,167 @@
+#' Adaptive Gauss–Hermite Gradient-Based Variance Estimation
+#'
+#' @description
+#' Computes an estimate of the standard deviations of fixed-effect parameters
+#' in a nonlinear mixed-effects model using adaptive Gauss–Hermite quadrature
+#' and numerical differentiation of the likelihood gradient.
+#'
+#' @details
+#' This function evaluates the score function (gradient of the log-likelihood)
+#' under an adaptive Gauss–Hermite approximation over random effects and
+#' numerically estimates the Hessian matrix using finite differences.
+#' The standard errors are obtained from the inverse Hessian.
+#'
+#' The computation can optionally be parallelized over parameter dimensions.
+#'
+#' @param RespLog A list-like object containing symbolic expressions for the
+#'   log-likelihood and its gradient components.
+#' @param long.data A data frame containing longitudinal observations.
+#' @param idVar Character string specifying the subject identifier column name.
+#' @param uniqueID Vector of unique subject IDs.
+#' @param fixedest0 Numeric vector of initial estimates for fixed effects.
+#' @param dispest0 Dispersion parameter estimates.
+#' @param invSIGMA0 Inverse covariance matrix of random effects.
+#' @param GHzsamp0 List containing Gauss–Hermite nodes and weights.
+#' @param GHsample0 List of subject-specific Gauss–Hermite quadrature nodes.
+#' @param Jfixed Character vector of fixed-effect parameter names.
+#' @param Jraneff Character vector of random-effect parameter names.
+#' @param ghsize Integer specifying Gauss–Hermite quadrature size per dimension.
+#' @param epsilon Step size used for finite difference approximation.
+#' @param parallel Logical; if TRUE, computation is parallelized across cores.
+#'
+#' @return
+#' A numeric vector of standard errors (square roots of diagonal of inverse
+#' Hessian matrix) for the fixed-effect parameters.
+#'
+#' @import parallel
+#' @import foreach
+#' @import doParallel
+#' @import Deriv
+#' @import here
+#'
+#' @examples
+#' \dontrun{
+#' sd_est <- calculate_aGH(
+#'   RespLog,
+#'   long.data = dat,
+#'   idVar = "id",
+#'   uniqueID = unique(dat$id),
+#'   fixedest0 = c(1, 0.5),
+#'   dispest0 = 0.1,
+#'   invSIGMA0 = diag(2),
+#'   GHzsamp0 = gh_nodes,
+#'   GHsample0 = gh_subject_nodes,
+#'   Jfixed = c("beta0", "beta1"),
+#'   Jraneff = c("b0", "b1"),
+#'   ghsize = 10,
+#'   epsilon = 1e-5,
+#'   parallel = TRUE
+#' )
+#' }
+#'
+#' @export
+
+calculate_aGH <- function(RespLog, long.data, idVar, uniqueID,
+                          fixedest0, dispest0, invSIGMA0,
+                          GHzsamp0,GHsample0,
+                          Jfixed, Jraneff,
+                          ghsize, epsilon, parallel){
+  
+  
+
+  #############
+  
+  p <- length(Jfixed)
+  q <- length(Jraneff)
+  
+  gr.mu <- Deriv(RespLog$mu.loglike, Jfixed)
+  
+  weights <- GHzsamp0$weights
+  n <- length(uniqueID)
+  
+ 
+  ## function for calculating S(theta, bi)
+  gr <- function(xx){
+    fy <- numeric(p)
+    # assign values to parameters
+    par.val <- make_name(Jfixed, xx)
+    par.val <-  c(par.val, dispest0)
+    par.val$invSIGMA <- invSIGMA0
+   
+    gn = matrix(NA, nrow=n, ncol=p)
+    
+    for(i in 1:n){
+      # i=1
+      subdat <-  subset(long.data, long.data[,idVar]==uniqueID[i])
+    
+      Bi_nodes <-  as.data.frame(GHsample0[[i]]$points)
+      names(Bi_nodes) <- Jraneff
+      
+      likefn =  rep(NA, ghsize^q)
+      gri = matrix(NA, ghsize^q, p)
+      
+      norm_term = 0
+      
+      for(j in 1:ghsize^q){
+        # j=1
+        
+        llike.val <- map(RespLog, function(tt){
+          with(subdat, with(par.val, with(Bi_nodes[j,], eval(parse(text=tt)))))
+        })
+        
+        likeli_all <- exp(sum(unlist(llike.val)))
+        
+        likefn[j] = likeli_all*exp(sum(GHzsamp0$points[j,]^2))
+        norm_term = norm_term+likeli_all
+        
+        gr.mul.val <- with(subdat, with(par.val, with(Bi_nodes[j,], eval(parse(text=gr.mu)))))
+        
+        gri[j,] = c(apply(matrix(gr.mul.val, byrow=FALSE, ncol=p), 2, sum))*likefn[j]
+      }
+      
+      gn[i,] = as.vector(t(gri)%*%weights)/c(norm_term)
+    }
+    
+    fy = apply(gn,2,sum)*det(invSIGMA0)^{-1/2}*2^{q/2}
+    return(-fy)
+  }
+  
+  ## esimate Hessian matrix by numerical derivative 
+  est = unlist(c(fixedest0))
+  
+  if(parallel==TRUE){
+    no_cores <- detectCores() - 1
+    cl <- makeCluster(no_cores)
+    registerDoParallel(cl)
+    
+    Hmat = foreach(exponent = 1:(p), 
+                   .combine = rbind
+    )  %dopar%  
+      {
+        setwd(here::here("src"))
+        file.sources = list.files(pattern="*.R$")
+        sapply(file.sources,source,.GlobalEnv)
+        
+        Delta = rep(0, p)
+        Delta[exponent] = epsilon
+        gr1= gr(est+Delta)
+        gr2= gr(est-Delta)
+        (gr1-gr2)/(epsilon*2)
+      }
+    
+    stopCluster(cl)
+  } else {
+    Hmat = matrix(NA, nrow=p, ncol=p)
+    for(i in 1:(p)){
+      # i=1
+      Delta = rep(0, p)
+      Delta[i] = epsilon
+      Hmat[i,]=(gr(est+Delta)-gr(est))/epsilon
+      # cat("i=",i,'\n')
+    }
+  }
+  
+  sd = sqrt(diag(solve(Hmat)))
+  
+  return(sd)
+}

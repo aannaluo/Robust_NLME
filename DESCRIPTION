@@ -1,0 +1,36 @@
+Package: RobustNLME
+Title: Jointly Modeling Means and Variances for Nonlinear Mixed Effects Models with Measurement Errors and Outliers
+Version: 0.0.1
+Authors@R: 
+    c(person(given="Qian", family="Ye",  email="qian.ye@stat.ubc.ca", role = c("aut", "cre")), 
+      person(given="Anna", family="Luo", email="aannaluo@gmail.com", role="ctb"),
+      person(given="Lang", family="Wu",  email="lang@stat.ubc.ca", role="ctb"))
+Maintainer: Qian Ye <qian.ye@stat.ubc.ca>
+Description: Lorem ipsum
+License: GPL-3
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Depends: 
+    R (>= 2.10)
+Imports:
+  dplyr,
+  fansi,
+  nlme,
+  tidyverse,
+  Deriv,
+  stringr,
+  LaplacesDemon,
+  purrr,
+  MASS,
+  mvtnorm,
+  tibble,
+  ggpubr,
+  ecoreg,
+  foreach,
+  parallel,
+  doParallel,
+  Matrix,
+  here,
+  batchtools,
+  R.utils
