@@ -1,3 +1,22 @@
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param RespLog PARAM_DESCRIPTION
+#' @param long.data PARAM_DESCRIPTION
+#' @param fixedest PARAM_DESCRIPTION
+#' @param dispest PARAM_DESCRIPTION
+#' @param invSIGMA PARAM_DESCRIPTION
+#' @param Bi PARAM_DESCRIPTION
+#' @param B PARAM_DESCRIPTION
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples 
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @rdname get_loglike_value
+#' @export 
 get_loglike_value <- function(RespLog, long.data, fixedest, dispest, invSIGMA, Bi, B){
   
   Yrandisp <- !is.null(RespLog$randisp.loglike)

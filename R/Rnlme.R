@@ -1,9 +1,29 @@
-#' @param nlmeObject
-#' @param long.data
-#' @param idVar
 
 # independent.raneff: "byModel"; "byOne"; FALSE
 
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param nlmeObjects PARAM_DESCRIPTION
+#' @param long.data PARAM_DESCRIPTION
+#' @param idVar PARAM_DESCRIPTION
+#' @param sd.method PARAM_DESCRIPTION, Default: 'None'
+#' @param dispersion.SD PARAM_DESCRIPTION, Default: FALSE
+#' @param independent.raneff PARAM_DESCRIPTION, Default: FALSE
+#' @param sdghsize PARAM_DESCRIPTION, Default: 4
+#' @param itertol PARAM_DESCRIPTION, Default: 0.001
+#' @param Ptol PARAM_DESCRIPTION, Default: 0.01
+#' @param iterMax PARAM_DESCRIPTION, Default: 15
+#' @param Verbose PARAM_DESCRIPTION, Default: FALSE
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples 
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @rdname Rnlme
+#' @export 
 Rnlme <- function(nlmeObjects, long.data, idVar, 
                   sd.method="None", dispersion.SD=FALSE, independent.raneff=FALSE,
                   sdghsize=4, itertol=1e-3, Ptol=1e-2, iterMax=15, Verbose=FALSE){

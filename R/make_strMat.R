@@ -2,6 +2,20 @@
 # Moreover, it returns L(l)'L(l)=SIGMA, which is a spherical
 # parameterization with diagonal elements 1
 
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param q2 PARAM_DESCRIPTION
+#' @param block PARAM_DESCRIPTION, Default: NULL
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples 
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @rdname make_strMat
+#' @export 
 make_strMat <- function(q2, block=NULL){
   
   if(is.null(block)){

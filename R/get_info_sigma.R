@@ -1,4 +1,17 @@
 
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param sigmaObject PARAM_DESCRIPTION
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples 
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @rdname get_info_sigma
+#' @export 
 get_info_sigma<- function(sigmaObject){
   
   sp1 <- strsplit(as.character(as.formula(sigmaObject$model)), "~",  fixed=T)

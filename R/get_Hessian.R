@@ -1,6 +1,20 @@
 
 # calculate hessian matrix 
 
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param loglik PARAM_DESCRIPTION
+#' @param pars PARAM_DESCRIPTION
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples 
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @rdname get_Hessian
+#' @export 
 get_Hessian <- function(loglik, pars){
   loglik_expr <- parse(text=loglik)
   q <- length(pars)

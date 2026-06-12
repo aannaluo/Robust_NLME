@@ -1,3 +1,25 @@
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param Rnlme.fit PARAM_DESCRIPTION
+#' @param simdat_train PARAM_DESCRIPTION
+#' @param simdat_test PARAM_DESCRIPTION
+#' @param a0_dist PARAM_DESCRIPTION
+#' @param a0_df PARAM_DESCRIPTION, Default: NULL
+#' @param at.rep PARAM_DESCRIPTION
+#' @param k.runs PARAM_DESCRIPTION, Default: 50
+#' @param big1 PARAM_DESCRIPTION, Default: 0.1
+#' @param big2 PARAM_DESCRIPTION, Default: 0.15
+#' @param independent.raneff PARAM_DESCRIPTION, Default: 'byModel'
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples 
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @rdname get_sd_bootstrap_with_pred
+#' @export 
 get_sd_bootstrap_with_pred<- function(Rnlme.fit, simdat_train, simdat_test, a0_dist, a0_df=NULL,
                              at.rep ,k.runs=50, big1=0.1, big2=0.15, 
                              independent.raneff = "byModel"){

@@ -1,6 +1,20 @@
 # this function return the log density for inverse-Chi distribution 
 # par: vector of variables, p>=1
 # df
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param par PARAM_DESCRIPTION
+#' @param df PARAM_DESCRIPTION
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples 
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @rdname make_loglike_invChi
+#' @export 
 make_loglike_invChi <- function(par, df){
   len <- length(par)
   

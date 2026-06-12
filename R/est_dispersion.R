@@ -1,3 +1,27 @@
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param RespLog PARAM_DESCRIPTION
+#' @param long.data PARAM_DESCRIPTION
+#' @param Jdisp PARAM_DESCRIPTION
+#' @param fixedest PARAM_DESCRIPTION
+#' @param dispest0 PARAM_DESCRIPTION
+#' @param invSIGMA0 PARAM_DESCRIPTION
+#' @param Lval0 PARAM_DESCRIPTION
+#' @param Bi PARAM_DESCRIPTION
+#' @param B PARAM_DESCRIPTION
+#' @param lower PARAM_DESCRIPTION
+#' @param upper PARAM_DESCRIPTION
+#' @param Verbose PARAM_DESCRIPTION, Default: TRUE
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples 
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @rdname est_dispersion
+#' @export 
 est_dispersion <- function(RespLog, long.data, Jdisp,
                            fixedest, dispest0, invSIGMA0, Lval0,
                            Bi, B,

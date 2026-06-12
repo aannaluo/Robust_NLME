@@ -1,3 +1,18 @@
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param par PARAM_DESCRIPTION
+#' @param mean PARAM_DESCRIPTION
+#' @param sd PARAM_DESCRIPTION
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples 
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @rdname make_loglike_normal
+#' @export 
 make_loglike_normal <- function(par, mean, sd){
   len <- length(par)
   

@@ -1,17 +1,10 @@
+
 #' Adaptive Gauss–Hermite Gradient-Based Variance Estimation
 #'
 #' @description
 #' Computes an estimate of the standard deviations of fixed-effect parameters
 #' in a nonlinear mixed-effects model using adaptive Gauss–Hermite quadrature
 #' and numerical differentiation of the likelihood gradient.
-#'
-#' @details
-#' This function evaluates the score function (gradient of the log-likelihood)
-#' under an adaptive Gauss–Hermite approximation over random effects and
-#' numerically estimates the Hessian matrix using finite differences.
-#' The standard errors are obtained from the inverse Hessian.
-#'
-#' The computation can optionally be parallelized over parameter dimensions.
 #'
 #' @param RespLog A list-like object containing symbolic expressions for the
 #'   log-likelihood and its gradient components.
@@ -60,7 +53,7 @@
 #' }
 #'
 #' @export
-
+#' 
 calculate_aGH <- function(RespLog, long.data, idVar, uniqueID,
                           fixedest0, dispest0, invSIGMA0,
                           GHzsamp0,GHsample0,

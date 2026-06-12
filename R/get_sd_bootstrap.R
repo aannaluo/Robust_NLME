@@ -1,3 +1,26 @@
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param Rnlme.fit PARAM_DESCRIPTION
+#' @param simdat PARAM_DESCRIPTION
+#' @param at.rep PARAM_DESCRIPTION
+#' @param k.runs PARAM_DESCRIPTION, Default: 50
+#' @param big1 PARAM_DESCRIPTION, Default: 0.1
+#' @param big2 PARAM_DESCRIPTION, Default: 0.15
+#' @param bt.method PARAM_DESCRIPTION, Default: 'par'
+#' @param independent.raneff PARAM_DESCRIPTION, Default: 'byModel'
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples 
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @seealso 
+#'  \code{\link[dplyr]{filter}}
+#' @rdname get_sd_bootstrap
+#' @export 
+#' @importFrom dplyr filter
 get_sd_bootstrap<- function(Rnlme.fit, simdat,at.rep ,k.runs=50, big1=0.1, big2=0.15, 
                             bt.method = "par",independent.raneff = "byModel"){
  

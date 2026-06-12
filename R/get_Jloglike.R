@@ -1,3 +1,16 @@
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param nlmeObjects PARAM_DESCRIPTION
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples 
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @rdname get_Jloglike
+#' @export 
 get_Jloglike <- function(nlmeObjects){
   
   k <- length(nlmeObjects) # number of lme/nlme models

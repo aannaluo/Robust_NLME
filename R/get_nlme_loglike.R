@@ -1,3 +1,16 @@
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param nlmeObject PARAM_DESCRIPTION
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples 
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @rdname get_mu
+#' @export 
 get_mu <- function(nlmeObject){
   ranCovObject <- nlmeObject$ranCovObject
   
@@ -73,6 +86,19 @@ get_mu <- function(nlmeObject){
 }
 
 
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param nlmeObject PARAM_DESCRIPTION
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples 
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @rdname get_nlme_loglike
+#' @export 
 get_nlme_loglike <- function(nlmeObject){
   
   ############## Return from get_info_sigma #####################
