@@ -245,21 +245,46 @@ Rnlme <- function(nlmeObjects, long.data, idVar,
   AIC <- 2*length(c(fixedest0, dispest0, Lval0)) -2*loglike_value0
   BIC <- length(c(fixedest0, dispest0, Lval0))*log(nrow(B))-2*loglike_value0
   
-  list(fixedest = fixedest0,
-       fixedSD  = fixedSD,
-       dispersion = dispest0,
-       dispSD=sd_disp,
-       Bi = Bi, 
-       B = B,
-       SIGMA = solve(invSIGMA0), 
-       convergence = convergence==0,
-       loglike_value = loglike_value0,
-       AIC=AIC,
-       BIC=BIC,
-       long.data = long.data,
-       #surv.data = surv.data,
-       RespLog = Jloglike,Jfixed=Jfixed, Jraneff = Jraneff,
-       idVar = idVar, uniqueID = uniqueID,
-       Jdf = JReturn$Jdf
+#  list(fixedest = fixedest0,
+#       fixedSD  = fixedSD,
+#       dispersion = dispest0,
+#       dispSD=sd_disp,
+#       Bi = Bi, 
+#       B = B,
+#       SIGMA = solve(invSIGMA0), 
+#       convergence = convergence==0,
+#       loglike_value = loglike_value0,
+#       AIC=AIC,
+#       BIC=BIC,
+#       long.data = long.data,
+#       #surv.data = surv.data,
+#       RespLog = Jloglike,Jfixed=Jfixed, Jraneff = Jraneff,
+#       idVar = idVar, uniqueID = uniqueID,
+#       Jdf = JReturn$Jdf
+#  )
+  
+  result <- list(
+    fixedest = fixedest0,
+    fixedSD = fixedSD,
+    dispersion = dispest0,
+    dispSD = sd_disp,
+    Bi = Bi,
+    B = B,
+    SIGMA = solve(invSIGMA0),
+    convergence = convergence==0,
+    loglike_value = loglike_value0,
+    AIC = AIC,
+    BIC = BIC,
+    long.data = long.data,
+    RespLog = Jloglike,
+    Jfixed = Jfixed,
+    Jraneff = Jraneff,
+    idVar = idVar,
+    uniqueID = uniqueID,
+    Jdf = JReturn$Jdf
   )
+  
+  class(result) <- "Rnlme"
+  
+  return(result)
 }
