@@ -1,3 +1,6 @@
+# Not used
+
+
 get_sd_bootstrap_with_pred<- function(Rnlme.fit, simdat_train, simdat_test, a0_dist, a0_df=NULL,
                              at.rep ,k.runs=50, big1=0.1, big2=0.15, 
                              independent.raneff = "byModel"){

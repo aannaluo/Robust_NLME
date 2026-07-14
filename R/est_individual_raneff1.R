@@ -1,4 +1,5 @@
 # separate mu.loglike, so we can incorporate missing data 
+
 est_individual_raneff1 <- function(RespLog, data, raneff, 
                                   fixedest, dispest, invSIGMA, 
                                   Verbose=TRUE) {

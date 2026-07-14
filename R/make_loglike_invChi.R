@@ -1,6 +1,7 @@
 # this function return the log density for inverse-Chi distribution 
 # par: vector of variables, p>=1
 # df
+
 make_loglike_invChi <- function(par, df){
   len <- length(par)
   

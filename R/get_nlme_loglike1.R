@@ -1,3 +1,6 @@
+# TODO (Old version)
+
+
 get_mu1 <- function(nlmeObject){
   ranCovObject <- nlmeObject$ranCovObject
   
@@ -71,7 +74,6 @@ get_mu1 <- function(nlmeObject){
   return(mu)
   
 }
-
 
 get_nlme_loglike1 <- function(nlmeObject){
   

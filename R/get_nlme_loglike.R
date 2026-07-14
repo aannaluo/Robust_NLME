@@ -1,3 +1,5 @@
+
+
 get_mu <- function(nlmeObject){
   ranCovObject <- nlmeObject$ranCovObject
   
@@ -72,7 +74,32 @@ get_mu <- function(nlmeObject){
   
 }
 
-
+# KEEP
+#' @title Build NLME log-likelihood components
+#'
+#' @description
+#' Constructs symbolic log-likelihood components for a nonlinear mixed-effects
+#' model, including mean, variance, and random-effects contributions.
+#'
+#' @param nlmeObject A nonlinear mixed-effects model specification object.
+#'
+#' @return A list containing symbolic likelihood expressions, parameter names,
+#' starting values, bounds, and model information.
+#'
+#' @details
+#' Extracts model components and builds the likelihood structure required for
+#' joint NLME estimation.
+#'
+#' @examples
+#' \dontrun{
+#' if(interactive()){
+#'   # Example:
+#'   # loglike <- get_nlme_loglike(nlmeObject)
+#' }
+#' }
+#'
+#' @rdname get_nlme_loglike
+#' @export
 get_nlme_loglike <- function(nlmeObject){
   
   ############## Return from get_info_sigma #####################

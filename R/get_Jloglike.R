@@ -1,3 +1,31 @@
+# KEEP
+
+#' @title Construct joint log-likelihood structure from multiple NLME models
+#'
+#' @description
+#' Combines multiple nonlinear mixed-effects models into a unified joint
+#' likelihood representation for estimation.
+#'
+#' @param nlmeObjects A list of nonlinear mixed-effects model specification objects.
+#'
+#' @return A list containing joint likelihood components, parameter definitions,
+#' starting values, parameter bounds, and random-effects covariance information.
+#'
+#' @details
+#' Extracts likelihood components from each NLME model and combines fixed
+#' effects, dispersion parameters, and random-effects structures into a joint
+#' representation.
+#'
+#' @examples
+#' \dontrun{
+#' if(interactive()){
+#'   # Example:
+#'   # Jloglike <- get_Jloglike(nlmeObjects)
+#' }
+#' }
+#'
+#' @rdname get_Jloglike
+#' @export
 get_Jloglike <- function(nlmeObjects){
   
   k <- length(nlmeObjects) # number of lme/nlme models
@@ -34,6 +62,8 @@ get_Jloglike <- function(nlmeObjects){
     
     upper.fixed <- c(upper.fixed, nlmeReturn$upper.fixed)
     upper.disp <- c(upper.disp,nlmeReturn$upper.disp)
+    
+    Jdf <- c(Jdf, nlmeReturn$sigma.df)
   }
   
   Jraneff <- c(parSIGMA, parNSIG)
@@ -51,10 +81,10 @@ get_Jloglike <- function(nlmeObjects){
   ## Joint likelihood
   Jloglike=list(mu.loglike=mu.loglike,sigma.loglike=sigma.loglike, ran.loglike=ran.loglike)
   
-
+  # TODO consider adding Jdf=Jdf
   result <- list(Jloglike=Jloglike, Jfixed=Jfixed, Jraneff=Jraneff, Jdisp=Jdisp,
        str.fixed=str.fixed, str.disp=str.disp, lower.fixed=lower.fixed, lower.disp=lower.disp,
-       upper.fixed=upper.fixed, upper.disp=upper.disp,SIGMA.dim=SIGMA.dim, SIGMA.block=SIGMA.block)
+       upper.fixed=upper.fixed, upper.disp=upper.disp,SIGMA.dim=SIGMA.dim, SIGMA.block=SIGMA.block, Jdf=Jdf)
   
   return(result)
 }

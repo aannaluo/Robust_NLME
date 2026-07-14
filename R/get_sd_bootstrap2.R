@@ -1,4 +1,5 @@
 # for exp(a0) ~ df/chisq
+
 get_sd_bootstrap2<- function(Rnlme.fit, simdat,at.rep ,k.runs=50, big1=0.1, big2=0.15, 
                              independent.raneff = "byModel",df){
   group <- simdat$patid  # grouping variable, e.g patient ID
@@ -113,6 +114,8 @@ get_sd_bootstrap2<- function(Rnlme.fit, simdat,at.rep ,k.runs=50, big1=0.1, big2
     while(convg==FALSE | class(model.fit)=="try-error"){
       
       ## generate random effects
+      
+      ## TODO
       a0 <- log(df/rchisq(n, df))
       
       D <- diag(c(d, sigma_b)) %*% Mat %*% diag(c(d, sigma_b))
@@ -187,6 +190,4 @@ get_sd_bootstrap2<- function(Rnlme.fit, simdat,at.rep ,k.runs=50, big1=0.1, big2
               se.bt2=se.bt2, 
               runs.bt1=k.runs-sum(drop.index1), 
               runs.bt2=k.runs-sum(drop.index2)))
-  
-  
 }

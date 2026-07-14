@@ -1,3 +1,5 @@
+
+
 get_sd_dipsersion <- function(RespLog, long.data, idVar,
                    fixedest0, dispest0, invSIGMA0,SIGMA0, Lval0,Lmat,
                    Bi, B,

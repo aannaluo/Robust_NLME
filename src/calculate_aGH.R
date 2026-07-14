@@ -5,7 +5,7 @@ calculate_aGH <- function(RespLog, long.data, idVar, uniqueID,
                           ghsize, epsilon, parallel){
   
   
-
+  
   #############
   
   p <- length(Jfixed)
@@ -16,7 +16,7 @@ calculate_aGH <- function(RespLog, long.data, idVar, uniqueID,
   weights <- GHzsamp0$weights
   n <- length(uniqueID)
   
- 
+  
   ## function for calculating S(theta, bi)
   gr <- function(xx){
     fy <- numeric(p)
@@ -24,13 +24,13 @@ calculate_aGH <- function(RespLog, long.data, idVar, uniqueID,
     par.val <- make_name(Jfixed, xx)
     par.val <-  c(par.val, dispest0)
     par.val$invSIGMA <- invSIGMA0
-   
+    
     gn = matrix(NA, nrow=n, ncol=p)
     
     for(i in 1:n){
       # i=1
       subdat <-  subset(long.data, long.data[,idVar]==uniqueID[i])
-    
+      
       Bi_nodes <-  as.data.frame(GHsample0[[i]]$points)
       names(Bi_nodes) <- Jraneff
       

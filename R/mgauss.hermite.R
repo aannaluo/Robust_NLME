@@ -1,3 +1,4 @@
+
 mgauss.hermite <- function(n, mu, sigma=NULL, prune=NULL) {
   if(!all(dim(sigma) == length(mu)))
     stop("mu and sigma have nonconformable dimensions")

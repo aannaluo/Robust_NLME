@@ -1,4 +1,30 @@
+## KEEP 
 
+#' @title Construct Sigma model information
+#'
+#' @description
+#' Extracts model structure and likelihood information from a sigma model
+#' object for use in joint h-likelihood estimation.
+#'
+#' @param sigmaObject A sigma model specification object.
+#'
+#' @return A list containing sigma expressions, likelihood components,
+#' parameter names, starting values, and parameter bounds.
+#'
+#' @details
+#' Parses fixed and random effects in the sigma model and constructs the
+#' corresponding symbolic expressions and likelihood components.
+#'
+#' @examples
+#' \dontrun{
+#' if(interactive()){
+#'   # Example:
+#'   # sigmaInfo <- get_info_sigma(sigmaObject)
+#' }
+#' }
+#'
+#' @rdname get_info_sigma
+#' @export
 get_info_sigma<- function(sigmaObject){
   
   sp1 <- strsplit(as.character(as.formula(sigmaObject$model)), "~",  fixed=T)
@@ -107,6 +133,3 @@ get_info_sigma<- function(sigmaObject){
               df=df,str.val=str.fixed,lower=lower.fixed, upper=upper.fixed, 
               disp=disp, str.disp=str.disp, lower.disp=lower.disp, upper.disp=upper.disp ))
 }
-
-
-

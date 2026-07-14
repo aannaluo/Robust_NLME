@@ -1,5 +1,6 @@
 # evaluate a matrix 
 
+
 get_Hvalue <- function(mat, dim, data=NULL, par.val=NULL, raneff.val=NULL){
   D <- matrix(0, dim, dim)
   for(i in 1:dim){

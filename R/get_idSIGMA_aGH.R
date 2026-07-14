@@ -1,5 +1,4 @@
 
-
 get_idSIGMA_aGH <- function(RespLog, long.data, idVar, uniqueID,
                            fixedest0, dispest0, invSIGMA0,Bi, B,
                            Jfixed, Jraneff){ 

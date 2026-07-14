@@ -1,3 +1,4 @@
+
 est_fixed <- function(RespLog, long.data, Jfixed,
                       fixedest0, dispest0, invSIGMA0,
                       Bi, B, 
