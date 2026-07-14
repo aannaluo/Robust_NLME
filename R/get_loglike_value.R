@@ -1,6 +1,10 @@
-#' @title FUNCTION_TITLE
-#' @description FUNCTION_DESCRIPTION
-#' @param RespLog PARAM_DESCRIPTION
+#' @title Evaluate Joint H-Likelihood
+#' @description
+#' Computes the value of the joint h-likelihood for a nonlinear mixed-effects
+#' model by evaluating contributions from the mean model, dispersion model,
+#' and random-effects distribution given parameter estimates.
+#' @param RespLog A list-like object containing symbolic expressions for the
+#'   log-likelihood and its gradient components.
 #' @param long.data PARAM_DESCRIPTION
 #' @param fixedest PARAM_DESCRIPTION
 #' @param dispest PARAM_DESCRIPTION
@@ -16,7 +20,7 @@
 #'  }
 #' }
 #' @rdname get_loglike_value
-#' @export 
+
 get_loglike_value <- function(RespLog, long.data, fixedest, dispest, invSIGMA, Bi, B){
   
   Yrandisp <- !is.null(RespLog$randisp.loglike)

@@ -271,7 +271,7 @@ for(k in 1:rep){
   }
   ############### Bootstrapping SE #####################
   cat("--Runing Bootstrapping SE for Joint model\n\n")
-  JM.SD.BT <- get_sd_bootstrap1(Rnlme.fit=JM, simdat, at.rep=k ,k.runs=k.runs, independent.raneff = "byModel")
+  JM.SD.BT <- get_sd_bootstrap(Rnlme.fit=JM, simdat, at.rep=k ,k.runs=k.runs, independent.raneff = "byModel")
   cat("--done\n")
   
   runs.bt1 <- c(runs.bt1, JM.SD.BT$runs.bt1)

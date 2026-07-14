@@ -1,24 +1,5 @@
 # for exp(a0) ~ df/chisq
-#' @title FUNCTION_TITLE
-#' @description FUNCTION_DESCRIPTION
-#' @param Rnlme.fit PARAM_DESCRIPTION
-#' @param simdat PARAM_DESCRIPTION
-#' @param at.rep PARAM_DESCRIPTION
-#' @param k.runs PARAM_DESCRIPTION, Default: 50
-#' @param big1 PARAM_DESCRIPTION, Default: 0.1
-#' @param big2 PARAM_DESCRIPTION, Default: 0.15
-#' @param independent.raneff PARAM_DESCRIPTION, Default: 'byModel'
-#' @param df PARAM_DESCRIPTION
-#' @return OUTPUT_DESCRIPTION
-#' @details DETAILS
-#' @examples 
-#' \dontrun{
-#' if(interactive()){
-#'  #EXAMPLE1
-#'  }
-#' }
-#' @rdname get_sd_bootstrap2
-#' @export 
+
 get_sd_bootstrap2<- function(Rnlme.fit, simdat,at.rep ,k.runs=50, big1=0.1, big2=0.15, 
                              independent.raneff = "byModel",df){
   group <- simdat$patid  # grouping variable, e.g patient ID
@@ -133,6 +114,8 @@ get_sd_bootstrap2<- function(Rnlme.fit, simdat,at.rep ,k.runs=50, big1=0.1, big2
     while(convg==FALSE | class(model.fit)=="try-error"){
       
       ## generate random effects
+      
+      ## TODO
       a0 <- log(df/rchisq(n, df))
       
       D <- diag(c(d, sigma_b)) %*% Mat %*% diag(c(d, sigma_b))
@@ -207,6 +190,4 @@ get_sd_bootstrap2<- function(Rnlme.fit, simdat,at.rep ,k.runs=50, big1=0.1, big2
               se.bt2=se.bt2, 
               runs.bt1=k.runs-sum(drop.index1), 
               runs.bt2=k.runs-sum(drop.index2)))
-  
-  
 }

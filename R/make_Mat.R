@@ -1,17 +1,4 @@
-#' @title FUNCTION_TITLE
-#' @description FUNCTION_DESCRIPTION
-#' @param q2 PARAM_DESCRIPTION
-#' @param par PARAM_DESCRIPTION, Default: 'L'
-#' @return OUTPUT_DESCRIPTION
-#' @details DETAILS
-#' @examples 
-#' \dontrun{
-#' if(interactive()){
-#'  #EXAMPLE1
-#'  }
-#' }
-#' @rdname make_Mat
-#' @export 
+
 make_Mat <- function(q2, par="L"){
   if(q2==1) {
     M=diag(rep(1,q2))

@@ -1,36 +1,5 @@
-#' @title Estimate Dispersion Parameters by Maximum Likelihood
-#' @description
-#' Estimates dispersion parameters and the random effects covariance matrix
-#' in a nonlinear mixed-effects model by maximizing the adjusted profile
-#' h-likelihood using constrained optimization.
-#' 
-#' @param RespLog A list-like object containing symbolic expressions for the
-#'   log-likelihood and its gradient components.
-#' @param long.data A data frame containing longitudinal observations.
-#' @param Jfixed Character vector of fixed-effect parameter names.
-#' @param Jraneff Character vector of random-effect parameter names.
-#' @param Jraneff PARAM_DESCRIPTION
-#' @param fixedest PARAM_DESCRIPTION
-#' @param dispest0 PARAM_DESCRIPTION
-#' @param invSIGMA0 PARAM_DESCRIPTION
-#' @param Lval0 PARAM_DESCRIPTION
-#' @param Bi PARAM_DESCRIPTION
-#' @param B PARAM_DESCRIPTION
-#' @param lower PARAM_DESCRIPTION
-#' @param upper PARAM_DESCRIPTION
-#' @param independent PARAM_DESCRIPTION
-#' @param block PARAM_DESCRIPTION
-#' @param Verbose PARAM_DESCRIPTION, Default: TRUE
-#' @return OUTPUT_DESCRIPTION
-#' @details DETAILS
-#' @examples 
-#' \dontrun{
-#' if(interactive()){
-#'  #EXAMPLE1
-#'  }
-#' }
-#' @rdname est_disp_ml
-#' @export 
+
+
 est_disp_ml <- function(RespLog, long.data, Jdisp,Jfixed, Jraneff,
                         fixedest, dispest0, invSIGMA0, Lval0,
                         Bi, B,

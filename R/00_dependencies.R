@@ -19,3 +19,11 @@ library(here)
 library(batchtools)
 library(R.utils)
 
+# TODO summary, coef, aic, bic, var, randomeffects
+
+# parameters
+# look at what regular summary function gives
+
+
+
+

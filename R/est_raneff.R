@@ -1,32 +1,4 @@
-#' @title FUNCTION_TITLE
-#' @description FUNCTION_DESCRIPTION
-#' @param RespLog PARAM_DESCRIPTION
-#' @param long.data PARAM_DESCRIPTION
-#' @param idVar PARAM_DESCRIPTION
-#' @param Jraneff PARAM_DESCRIPTION
-#' @param fixedest0 PARAM_DESCRIPTION
-#' @param dispest0 PARAM_DESCRIPTION
-#' @param invSIGMA0 PARAM_DESCRIPTION
-#' @param uniqueID PARAM_DESCRIPTION
-#' @param n PARAM_DESCRIPTION
-#' @param ni PARAM_DESCRIPTION
-#' @param q PARAM_DESCRIPTION
-#' @param N PARAM_DESCRIPTION
-#' @param q_split PARAM_DESCRIPTION
-#' @param df.sigma PARAM_DESCRIPTION
-#' @param df.randisp PARAM_DESCRIPTION
-#' @param Verbose PARAM_DESCRIPTION, Default: TRUE
-#' @param scale PARAM_DESCRIPTION, Default: TRUE
-#' @return OUTPUT_DESCRIPTION
-#' @details DETAILS
-#' @examples 
-#' \dontrun{
-#' if(interactive()){
-#'  #EXAMPLE1
-#'  }
-#' }
-#' @rdname est_raneff
-#' @export 
+
  est_raneff <- function(RespLog, long.data, idVar, Jraneff,
                        fixedest0, dispest0, invSIGMA0,
                        uniqueID, n,ni,q,N,q_split,df.sigma, df.randisp,

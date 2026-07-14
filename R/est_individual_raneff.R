@@ -1,22 +1,4 @@
-#' @title FUNCTION_TITLE
-#' @description FUNCTION_DESCRIPTION
-#' @param RespLog PARAM_DESCRIPTION
-#' @param data PARAM_DESCRIPTION
-#' @param raneff PARAM_DESCRIPTION
-#' @param fixedest PARAM_DESCRIPTION
-#' @param dispest PARAM_DESCRIPTION
-#' @param invSIGMA PARAM_DESCRIPTION
-#' @param Verbose PARAM_DESCRIPTION, Default: TRUE
-#' @return OUTPUT_DESCRIPTION
-#' @details DETAILS
-#' @examples 
-#' \dontrun{
-#' if(interactive()){
-#'  #EXAMPLE1
-#'  }
-#' }
-#' @rdname est_individual_raneff
-#' @export 
+
 est_individual_raneff <- function(RespLog, data, raneff, 
                                   fixedest, dispest, invSIGMA, 
                                   Verbose=TRUE) {

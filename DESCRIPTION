@@ -1,12 +1,12 @@
-Package: RobustNLME
-Title: Jointly Modeling Means and Variances for Nonlinear Mixed Effects Models with Measurement Errors and Outliers
+Package: JMVN
+Title: Joint Modeling of Means and Variances for Nonlinear Mixed-Effects Models
 Version: 0.0.1
 Authors@R: 
     c(person(given="Qian", family="Ye",  email="qian.ye@stat.ubc.ca", role = c("aut", "cre")), 
       person(given="Anna", family="Luo", email="aannaluo@gmail.com", role="ctb"),
       person(given="Lang", family="Wu",  email="lang@stat.ubc.ca", role="ctb"))
 Maintainer: Qian Ye <qian.ye@stat.ubc.ca>
-Description: Lorem ipsum
+Description: Provides methods for jointly modeling longitudinal means and within-subject variances in nonlinear mixed-effects models. The package accommodates covariates measured with error through measurement error models and supports robust inference for outlying observations via variance modeling. Parameter estimation is based on an efficient h-likelihood framework for simultaneous inference on mean, variance, and measurement error processes.
 License: GPL-3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

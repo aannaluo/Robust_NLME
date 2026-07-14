@@ -1,28 +1,4 @@
 
-
-#' @title FUNCTION_TITLE
-#' @description FUNCTION_DESCRIPTION
-#' @param RespLog PARAM_DESCRIPTION
-#' @param long.data PARAM_DESCRIPTION
-#' @param idVar PARAM_DESCRIPTION
-#' @param uniqueID PARAM_DESCRIPTION
-#' @param fixedest0 PARAM_DESCRIPTION
-#' @param dispest0 PARAM_DESCRIPTION
-#' @param invSIGMA0 PARAM_DESCRIPTION
-#' @param Bi PARAM_DESCRIPTION
-#' @param B PARAM_DESCRIPTION
-#' @param Jfixed PARAM_DESCRIPTION
-#' @param Jraneff PARAM_DESCRIPTION
-#' @return OUTPUT_DESCRIPTION
-#' @details DETAILS
-#' @examples 
-#' \dontrun{
-#' if(interactive()){
-#'  #EXAMPLE1
-#'  }
-#' }
-#' @rdname get_idSIGMA_aGH
-#' @export 
 get_idSIGMA_aGH <- function(RespLog, long.data, idVar, uniqueID,
                            fixedest0, dispest0, invSIGMA0,Bi, B,
                            Jfixed, Jraneff){ 

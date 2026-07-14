@@ -1,19 +1,4 @@
-#' @title FUNCTION_TITLE
-#' @description FUNCTION_DESCRIPTION
-#' @param n PARAM_DESCRIPTION
-#' @param mu PARAM_DESCRIPTION
-#' @param sigma PARAM_DESCRIPTION, Default: NULL
-#' @param prune PARAM_DESCRIPTION, Default: NULL
-#' @return OUTPUT_DESCRIPTION
-#' @details DETAILS
-#' @examples 
-#' \dontrun{
-#' if(interactive()){
-#'  #EXAMPLE1
-#'  }
-#' }
-#' @rdname mgauss.hermite
-#' @export 
+
 mgauss.hermite <- function(n, mu, sigma=NULL, prune=NULL) {
   if(!all(dim(sigma) == length(mu)))
     stop("mu and sigma have nonconformable dimensions")

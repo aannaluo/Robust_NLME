@@ -1,31 +1,47 @@
-#' @title FUNCTION_TITLE
-#' @description FUNCTION_DESCRIPTION
-#' @param RespLog PARAM_DESCRIPTION
-#' @param long.data PARAM_DESCRIPTION
-#' @param idVar PARAM_DESCRIPTION
-#' @param fixedest0 PARAM_DESCRIPTION
-#' @param dispest0 PARAM_DESCRIPTION
-#' @param invSIGMA0 PARAM_DESCRIPTION
-#' @param Bi PARAM_DESCRIPTION
-#' @param B PARAM_DESCRIPTION
-#' @param Jfixed PARAM_DESCRIPTION
-#' @param Jraneff PARAM_DESCRIPTION
-#' @param ghsize PARAM_DESCRIPTION, Default: 4
-#' @param Silent PARAM_DESCRIPTION, Default: T
-#' @param epsilon PARAM_DESCRIPTION, Default: 10^{
-#'    -6
-#'}
-#' @param parallel PARAM_DESCRIPTION, Default: F
-#' @return OUTPUT_DESCRIPTION
-#' @details DETAILS
-#' @examples 
+# KEEP
+
+#' @title Adaptive Gaussian-Hermite variance estimation
+#'
+#' @description
+#' Computes standard deviation estimates using adaptive Gaussian-Hermite
+#' quadrature for a nonlinear mixed-effects model.
+#'
+#' @param RespLog A list containing symbolic log-likelihood components.
+#' @param long.data A longitudinal dataset containing model observations.
+#' @param idVar Character string specifying the subject identifier variable.
+#' @param fixedest0 Estimated fixed-effect parameters.
+#' @param dispest0 Estimated dispersion parameters.
+#' @param invSIGMA0 Inverse of the random-effects covariance matrix.
+#' @param Bi Estimated subject-specific random effects.
+#' @param B Matrix of random-effect estimates.
+#' @param Jfixed Indices or definitions of fixed-effect parameters.
+#' @param Jraneff Indices or definitions of random-effect parameters.
+#' @param ghsize Number of Gaussian-Hermite quadrature points. Default is \code{4}.
+#' @param Silent Logical indicating whether errors are suppressed. Default is
+#' \code{TRUE}.
+#' @param epsilon Numerical tolerance for quadrature calculations. Default is
+#' \code{10^{-6}}.
+#' @param parallel Logical indicating whether parallel computation is used.
+#' Default is \code{FALSE}.
+#'
+#' @return Standard deviation estimates obtained from adaptive Gaussian-Hermite
+#' quadrature.
+#'
+#' @details
+#' Generates subject-specific Gaussian-Hermite quadrature samples using estimated
+#' random-effects covariance matrices and computes variance estimates through
+#' numerical integration.
+#'
+#' @examples
 #' \dontrun{
 #' if(interactive()){
-#'  #EXAMPLE1
-#'  }
+#'   # Example:
+#'   # sd <- get_sd_aGH(...)
 #' }
+#' }
+#'
 #' @rdname get_sd_aGH
-#' @export 
+#' @export
 get_sd_aGH <- function(RespLog, long.data, idVar, 
                        fixedest0, dispest0, invSIGMA0,Bi, B,
                        Jfixed, Jraneff,  

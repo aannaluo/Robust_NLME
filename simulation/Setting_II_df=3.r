@@ -289,7 +289,7 @@ for(k in 1:rep){
   }
   ############### Bootstrapping SE #####################
   cat("--Runing Bootstrapping SE for Joint model\n\n")
-  JM.SD.BT <- get_sd_bootstrap2(Rnlme.fit=JM, simdat, at.rep=k ,k.runs=k.runs, 
+  JM.SD.BT <- get_sd_bootstrap(Rnlme.fit=JM, simdat, at.rep=k ,k.runs=k.runs, 
                                 independent.raneff = "byModel", df=df_invChi)
   cat("--done\n")
   

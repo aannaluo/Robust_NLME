@@ -1,29 +1,47 @@
-
+# Keep
 # independent.raneff: "byModel"; "byOne"; FALSE
 
-#' @title FUNCTION_TITLE
-#' @description FUNCTION_DESCRIPTION
-#' @param nlmeObjects PARAM_DESCRIPTION
-#' @param long.data PARAM_DESCRIPTION
-#' @param idVar PARAM_DESCRIPTION
-#' @param sd.method PARAM_DESCRIPTION, Default: 'None'
-#' @param dispersion.SD PARAM_DESCRIPTION, Default: FALSE
-#' @param independent.raneff PARAM_DESCRIPTION, Default: FALSE
-#' @param sdghsize PARAM_DESCRIPTION, Default: 4
-#' @param itertol PARAM_DESCRIPTION, Default: 0.001
-#' @param Ptol PARAM_DESCRIPTION, Default: 0.01
-#' @param iterMax PARAM_DESCRIPTION, Default: 15
-#' @param Verbose PARAM_DESCRIPTION, Default: FALSE
-#' @return OUTPUT_DESCRIPTION
-#' @details DETAILS
-#' @examples 
+#' @title Joint nonlinear mixed-effects model estimation (Rnlme)
+#'
+#' @description
+#' Fits a joint nonlinear mixed-effects model by iteratively estimating
+#' random effects, fixed effects, and dispersion parameters.
+#'
+#' @param nlmeObjects A nonlinear mixed-effects model object containing model specifications.
+#' @param long.data A longitudinal dataset containing observations and grouping information.
+#' @param idVar Character string specifying the subject/group identifier variable.
+#' @param sd.method Method for estimating standard errors. Options are \code{"None"}, 
+#' \code{"HL"}, \code{"aGH"}, or \code{"Both"}. Default is \code{"None"}.
+#' @param dispersion.SD Logical indicating whether dispersion parameter standard errors
+#' should be estimated. Default is \code{FALSE}.
+#' @param independent.raneff Logical indicating whether random effects are assumed
+#' independent. Default is \code{FALSE}.
+#' @param sdghsize Number of quadrature points for adaptive Gaussian quadrature.
+#' Default is \code{4}.
+#' @param itertol Likelihood convergence tolerance. Default is \code{0.001}.
+#' @param Ptol Parameter convergence tolerance. Default is \code{0.01}.
+#' @param iterMax Maximum number of iterations. Default is \code{15}.
+#' @param Verbose Logical indicating whether progress messages are printed.
+#' Default is \code{FALSE}.
+#'
+#' @return A list containing parameter estimates, random effects, covariance
+#' estimates, likelihood values, model criteria, and convergence information.
+#'
+#' @examples
 #' \dontrun{
 #' if(interactive()){
-#'  #EXAMPLE1
-#'  }
+#'   # Example:
+#'   # fit <- Rnlme(nlmeObjects, long.data, idVar="id")
 #' }
+#' }
+#'
+#' @seealso
+#' \code{\link{est_raneff}},
+#' \code{\link{est_fixed}},
+#' \code{\link{est_disp_ml}}
+#'
 #' @rdname Rnlme
-#' @export 
+#' @export
 Rnlme <- function(nlmeObjects, long.data, idVar, 
                   sd.method="None", dispersion.SD=FALSE, independent.raneff=FALSE,
                   sdghsize=4, itertol=1e-3, Ptol=1e-2, iterMax=15, Verbose=FALSE){
@@ -241,6 +259,7 @@ Rnlme <- function(nlmeObjects, long.data, idVar,
        long.data = long.data,
        #surv.data = surv.data,
        RespLog = Jloglike,Jfixed=Jfixed, Jraneff = Jraneff,
-       idVar = idVar, uniqueID = uniqueID
+       idVar = idVar, uniqueID = uniqueID,
+       Jdf = JReturn$Jdf
   )
 }

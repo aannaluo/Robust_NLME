@@ -416,6 +416,3 @@ saveRDS(list(NLME.out=NLME.out,TS.out=TS.out,JM.out=JM.out, alpha.NLME=alpha.NLM
         here::here("s1.rds"))
 
 save.image(here::here("s1.RData"))
-
-
-

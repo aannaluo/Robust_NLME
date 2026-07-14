@@ -1,29 +1,42 @@
-#' @title FUNCTION_TITLE
-#' @description FUNCTION_DESCRIPTION
-#' @param Rnlme.fit PARAM_DESCRIPTION
-#' @param simdat PARAM_DESCRIPTION
-#' @param at.rep PARAM_DESCRIPTION
-#' @param k.runs PARAM_DESCRIPTION, Default: 50
-#' @param big1 PARAM_DESCRIPTION, Default: 0.1
-#' @param big2 PARAM_DESCRIPTION, Default: 0.15
-#' @param bt.method PARAM_DESCRIPTION, Default: 'par'
-#' @param independent.raneff PARAM_DESCRIPTION, Default: 'byModel'
-#' @return OUTPUT_DESCRIPTION
-#' @details DETAILS
-#' @examples 
+# Keep
+
+#' @title Bootstrap standard error estimation for NLME parameters
+#'
+#' @description
+#' Computes bootstrap standard errors for parameters of a nonlinear
+#' mixed-effects model using simulated longitudinal datasets.
+#'
+#' @param Rnlme.fit A fitted Rnlme model object.
+#' @param simdat Dataset used for bootstrap simulation.
+#' @param at.rep Replication identifier for bootstrap output messages.
+#' @param k.runs Number of bootstrap runs. Default is \code{50}.
+#' @param big1 Relative error threshold for filtering bootstrap estimates.
+#' Default is \code{0.1}.
+#' @param big2 Relative error threshold for stricter filtering of bootstrap estimates.
+#' Default is \code{0.15}.
+#' @param independent.raneff Random-effects independence setting. Default is
+#' \code{"byModel"}.
+#'
+#' @return A list containing bootstrap standard errors and the number of
+#' retained bootstrap runs under different filtering thresholds.
+#'
+#' @details
+#' Generates simulated datasets from the fitted model, refits the NLME model
+#' for each bootstrap sample, and calculates standard errors from the resulting
+#' parameter estimates.
+#'
+#' @examples
 #' \dontrun{
 #' if(interactive()){
-#'  #EXAMPLE1
-#'  }
+#'   # Example:
+#'   # se <- get_sd_bootstrap(Rnlme.fit, simdat)
 #' }
-#' @seealso 
-#'  \code{\link[dplyr]{filter}}
+#' }
+#'
 #' @rdname get_sd_bootstrap
-#' @export 
-#' @importFrom dplyr filter
-get_sd_bootstrap<- function(Rnlme.fit, simdat,at.rep ,k.runs=50, big1=0.1, big2=0.15, 
-                            bt.method = "par",independent.raneff = "byModel"){
- 
+#' @export
+get_sd_bootstrap <- function(Rnlme.fit, simdat,at.rep ,k.runs=50, big1=0.1, big2=0.15, 
+                             independent.raneff = "byModel"){
   group <- simdat$patid  # grouping variable, e.g patient ID
   uniqueID <- unique(group)   
   n <- length(uniqueID)  # sample size
@@ -31,24 +44,23 @@ get_sd_bootstrap<- function(Rnlme.fit, simdat,at.rep ,k.runs=50, big1=0.1, big2=
   N <- nrow(simdat)
   t <- simdat$day
   
-  
   # estimates from cd4.fit
-  gamma <- Rnlme.fit$fixedest[c(6:8)]
+  gamma <- Rnlme.fit$fixedest[c(6:8)] # TODO
   xi <- Rnlme.fit$dispersion["xi"]
   sigma_b <- Rnlme.fit$dispersion["sigb1"]
   
   # estimates from Rnlme
-  d <- Rnlme.fit$dispersion[c(1:3)]
+  d <- Rnlme.fit$dispersion[c(1:2)] # TODO
   Mat <- Rnlme.fit$SIGMA
-  beta <- Rnlme.fit$fixedest[c(1:3)]
+  beta <- Rnlme.fit$fixedest[c(1:3)] # TODO
   alpha0 <- Rnlme.fit$fixedest["alpha0"]
   alpha1 <-  Rnlme.fit$fixedest["alpha1"]
   alpha <- c(alpha0, alpha1)
   sigma_a <- Rnlme.fit$dispersion["siga0"]
+  df <- Rnlme.fit$Jdf
   
   true.fixed <- c(beta, alpha, gamma)
   n.par <- length(true.fixed)
-  
   ################ models
   nf1 <- function(p1,p2,p3,t) p1+p2*exp(-p3*t)
   nf2 <- function(p1,p2,p3,t) p1+p2*t+p3*t^2
@@ -60,6 +72,7 @@ get_sd_bootstrap<- function(Rnlme.fit, simdat,at.rep ,k.runs=50, big1=0.1, big2=
     upper.disp=NULL,
     parName="xi"
   )
+  
   
   lmeObject.bt <- list(
     nf = "nf2" ,
@@ -81,7 +94,7 @@ get_sd_bootstrap<- function(Rnlme.fit, simdat,at.rep ,k.runs=50, big1=0.1, big2=
     lower.disp=c(0), # lower bounds for fixed dispersion of random eff
     upper.disp=c(Inf) # upper bounds for  fixed dispersion of random eff
   )
-
+  
   # residual dispersion model:  
   sigma2.bt <- list(
     model=~1+cd4.true+(1|patid),
@@ -102,7 +115,7 @@ get_sd_bootstrap<- function(Rnlme.fit, simdat,at.rep ,k.runs=50, big1=0.1, big2=
     model= lgcopy ~ nf(p1,p2,p3,day),
     var=c("day"),
     fixed = p1+p2+p3 ~1,
-    random = p1+p2+p3 ~1,
+    random = p1+p3 ~1,
     family='normal', 
     ran.dist='normal',
     fixName="beta",
@@ -114,8 +127,8 @@ get_sd_bootstrap<- function(Rnlme.fit, simdat,at.rep ,k.runs=50, big1=0.1, big2=
     str.disp=d,  # starting value for fixed dispersion of random eff
     lower.fixed=NULL, # lower bounds for fixed eff
     upper.fixed=rep(100,3), # upper bounds for fixed eff
-    lower.disp=c(0,0,0), # lower bounds for fixed dispersion of random eff
-    upper.disp=c(Inf,Inf,Inf) # upper bounds for  fixed dispersion of random eff
+    lower.disp=c(0,0), # lower bounds for fixed dispersion of random eff
+    upper.disp=c(Inf,Inf) # upper bounds for  fixed dispersion of random eff
   )
   
   
@@ -136,56 +149,47 @@ get_sd_bootstrap<- function(Rnlme.fit, simdat,at.rep ,k.runs=50, big1=0.1, big2=
     
     while(convg==FALSE | class(model.fit)=="try-error"){
       
-      if(bt.method=="par") {
-      
-        ## generate random effects
+      ## generate random effects
+      if (is.null(df)) {
         a0 <- rnorm(n, sd=sigma_a)
-        
-        D <- diag(c(d, sigma_b)) %*% Mat %*% diag(c(d, sigma_b))
-        ran <- rmvnorm(n, sigma=D)
-        
-        u <- ran[,c(1:3)]
-        b1 <- ran[,4]
-        
-        
-        simdat.bt <- c()
-        
-        for(i in 1:n){
-          indexi <- simdat$patid==uniqueID[i] 
-          nii <- ni[i]
-          ti <- t[indexi]
-          
-          ## simulate CD4
-          b1i <- b1[i]
-          cd_errori <- rnorm(nii, sd=xi)
-          cd_truei <- nf2(gamma[1]+b1i, gamma[2], gamma[3], ti)
-          cd_obsi <- cd_truei+cd_errori
-          
-          ## get time-varying variance
-          a0i <- a0[i]
-          sdi <- sqrt(exp(alpha0+alpha1*cd_truei+a0i))
-          errori <- rnorm(nii, sd=sdi)
-          
-          ## simulate lgcopy
-          ui <- u[i,]
-          tolEffi <- beta+ui
-          lgcopyi <- nf1(tolEffi[1], tolEffi[2],tolEffi[3],ti)+errori
-          
-          
-          dati <- data.frame(patid=uniqueID[i], day=ti, lgcopy=lgcopyi, cd4=cd_obsi)
-          
-          simdat.bt <- rbind(simdat.bt, dati)
-        }
+      } else {
+        a0 <- log(df/rchisq(n, df))
       }
       
-      if(bt.method=="non-par"){
-        simdat.bt <- c()
-        for(i in 1:n){
-          bt_index <- sample(uniqueID,1)
-          dati <- simdat %>% dplyr::filter(patid==bt_index)
-          dati$patid <- i
-          simdat.bt <- rbind(simdat.bt, dati)
-        }
+      D <- diag(c(d, sigma_b)) %*% Mat %*% diag(c(d, sigma_b))
+      ran <- rmvnorm(n, sigma=D)
+      
+      u <- ran[,c(1:2)]
+      b1 <- ran[,3]
+      
+      u <- cbind(u[,1], 0, u[,2])
+      simdat.bt <- c()
+      
+      for(i in 1:n){
+        indexi <- simdat$patid==uniqueID[i] 
+        nii <- ni[i]
+        ti <- t[indexi]
+        
+        ## simulate CD4
+        b1i <- b1[i]
+        cd_errori <- rnorm(nii, sd=xi)
+        cd_truei <- nf2(gamma[1]+b1i, gamma[2], gamma[3], ti)
+        cd_obsi <- cd_truei+cd_errori
+        
+        ## get time-varying variance
+        a0i <- a0[i]
+        sdi <- sqrt(exp(alpha0+alpha1*cd_truei+a0i))
+        errori <- rnorm(nii, sd=sdi)
+        
+        ## simulate lgcopy
+        ui <- u[i,]
+        tolEffi <- beta+ui
+        lgcopyi <- nf1(tolEffi[1], tolEffi[2],tolEffi[3],ti)+errori
+        
+        
+        dati <- data.frame(patid=uniqueID[i], day=ti, lgcopy=lgcopyi, cd4=cd_obsi)
+        
+        simdat.bt <- rbind(simdat.bt, dati)
       }
       
       simdat.bt <- simdat.bt %>% arrange(patid, day)
@@ -200,10 +204,10 @@ get_sd_bootstrap<- function(Rnlme.fit, simdat,at.rep ,k.runs=50, big1=0.1, big2=
     
   }
   
-
+  
   
   drop.index1 <- apply(est,1,FUN=function(t){max(abs((t-true.fixed)/true.fixed))>big1})
-
+  
   
   drop.index2 <- apply(est,1,FUN=function(t){max(abs((t-true.fixed)/true.fixed))>big2})
   
@@ -224,6 +228,6 @@ get_sd_bootstrap<- function(Rnlme.fit, simdat,at.rep ,k.runs=50, big1=0.1, big2=
               se.bt2=se.bt2, 
               runs.bt1=k.runs-sum(drop.index1), 
               runs.bt2=k.runs-sum(drop.index2)))
-
+  
   
 }

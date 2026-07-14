@@ -103,7 +103,7 @@ simdat <- readRDS(here::here("data","toy_data.rds"))
 
 
 ```
-    
+
 ```{r}
 #### JM method
     cat("--Runing Joint model\n")
@@ -175,4 +175,6 @@ simdat <- readRDS(here::here("data","toy_data.rds"))
     JM <- try(Rnlme(nlmeObjects=nlmeObjects_JM, long.data=simdat, 
                     idVar="patid", sd.method="HL", dispersion.SD = TRUE,
                     independent.raneff="byModel"))
+    
+    summary(JM)
 ```
