@@ -209,7 +209,7 @@ Unlike the two-step approach, uncertainty in the latent CD4 trajectory is propag
     cat("--Runing Joint model\n")
 ```
 
-The auxiliary CD4 measurement model is specified first.
+The CD4 measurement model is specified first.
 
 ```{r}
     #### JM
@@ -243,8 +243,6 @@ The measurement error model is defined below.
                          upper.disp=c(Inf)
                          )
 ```
-
-The variance model incorporates the latent true CD4 trajectory.
 
 ```{r}
     sigma2 <- list(model=~1+cd4.true+(1|patid),
