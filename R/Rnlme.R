@@ -281,7 +281,8 @@ Rnlme <- function(nlmeObjects, long.data, idVar,
     Jraneff = Jraneff,
     idVar = idVar,
     uniqueID = uniqueID,
-    Jdf = JReturn$Jdf
+    Jdf = JReturn$Jdf,
+    nlmeObjects = nlmeObjects
   )
   
   class(result) <- "Rnlme"

@@ -33,4 +33,9 @@ Imports:
   Matrix,
   here,
   batchtools,
-  R.utils
+  R.utils,
+  stats, 
+  AIC, 
+  BIC, 
+  coef, 
+  summary

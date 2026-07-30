@@ -32,7 +32,7 @@ get_Jloglike <- function(nlmeObjects){
   
   mu.loglike <- sigma.loglike <- ran.loglike <-  vector("list",k)
   
-  Jfixed  <- Jdisp <- parSIGMA <- parNSIG <- str.fixed <- str.disp <- lower.fixed <- lower.disp <- upper.fixed <- upper.disp <- SIGMA.block <- c()
+  Jfixed  <- Jdisp <- parSIGMA <- parNSIG <- str.fixed <- str.disp <- lower.fixed <- lower.disp <- upper.fixed <- upper.disp <- SIGMA.block <- Jdf <- c()
   
   for(i in 1:k){
     nlmeObject_i <- nlmeObjects[[i]]
