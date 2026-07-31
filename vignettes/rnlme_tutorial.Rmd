@@ -296,6 +296,10 @@ Finally, both models are fitted simultaneously.
   
   summary(JM_object)
   
+  VarCorr(JM_object)
+  
+  ranef(JM_object)
+  
   #summary_obj$p_value
 ```
 

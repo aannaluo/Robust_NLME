@@ -34,8 +34,4 @@ Imports:
   here,
   batchtools,
   R.utils,
-  stats, 
-  AIC, 
-  BIC, 
-  coef, 
-  summary
+  stats
