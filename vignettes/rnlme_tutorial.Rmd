@@ -53,8 +53,8 @@ The functions used throughout this tutorial are sourced from the package develop
 ```{r}
 rm(list=ls())
 ########################## source all functions  
-(file.sources = list.files(path=here::here("src"),pattern="*.R$"))
-(file.sources <- paste0(here::here("src"), "/", file.sources))
+(file.sources = list.files(path=here::here("R"),pattern="*.R$"))
+(file.sources <- paste0(here::here("R"), "/", file.sources))
 sapply(file.sources,source)
 
 ###############################################
@@ -209,7 +209,7 @@ Unlike the two-step approach, uncertainty in the latent CD4 trajectory is propag
     cat("--Runing Joint model\n")
 ```
 
-The auxiliary CD4 measurement model is specified first.
+The CD4 measurement model is specified first.
 
 ```{r}
     #### JM
@@ -244,8 +244,6 @@ The measurement error model is defined below.
                          )
 ```
 
-The variance model incorporates the latent true CD4 trajectory.
-
 ```{r}
     sigma2 <- list(model=~1+cd4.true+(1|patid),
                    link='log',
@@ -259,6 +257,7 @@ The variance model incorporates the latent true CD4 trajectory.
                    str.disp=0.5,
                    trueVal.model=list(var="cd4.true", model=lmeObject_JM)
                    )
+# variance model
 ```
 
 Finally, both models are fitted simultaneously.
@@ -289,8 +288,19 @@ Finally, both models are fitted simultaneously.
     JM <- try(Rnlme(nlmeObjects=nlmeObjects_JM, long.data=simdat, 
                     idVar="patid", sd.method="HL", dispersion.SD = TRUE,
                     independent.raneff="byModel"))
-    
-    summary(JM)
+    saveRDS(JM, file = "JM.rds")
+```
+
+```{r}
+  JM_object <- readRDS("JM.rds")
+  
+  summary(JM_object)
+  
+  VarCorr(JM_object)
+  
+  ranef(JM_object)
+  
+  #summary_obj$p_value
 ```
 
 # Summary

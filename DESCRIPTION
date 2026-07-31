@@ -33,4 +33,5 @@ Imports:
   Matrix,
   here,
   batchtools,
-  R.utils
+  R.utils,
+  stats
